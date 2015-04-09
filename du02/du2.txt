@@ -1,0 +1,92 @@
+## 2.1 (2b)
+
+O každej z nasledovných formúl rozhodnite a **dokážte** či je alebo nie je
+i) splniteľná, ii) tautológia, iii) občas pravdivá:
+
+a) ((a→b)→(b→a))
+
+je pravdiva pre a=0, b=0
+je nepravdiva pre a=0, b=1  
+=> je obcas pravdiva, je splnitelna, nie je tautologia
+
+b) ((a→(b→(c∨d)))∧¬((a→b)→((a∧¬d)→c)))
+
+je nesplnitelna, nie je tautologia, nie je obcas pravdiva  
+Dokaz nesplnitelnosti tablovou metodou, predp. ze je T a zavriem vsetky vetvy...   
+
+1.T ((a→(b→(c∨d)))∧¬((a→b)→((a∧¬d)→c)))   
+2. T (a=>(b=>(c|d))) [1]  
+3. T -((a=>b)=>((a&-d)=>c))) [1]  
+4. F ((a=>b)=>((a&-d)=>c))) [3]  
+5. T (a=>b) [4]  
+6. F ((a&-d)=>c)) [4]  
+7. T (a&-d) [6]  
+8. F c [6]  
+9. T a [7]  
+10. T -d [7]  
+11. F d [10]  
+----------------------------------------  
+12.T b [5]                |13. F a [5]  
+14.T (b=>(c|d)) [2]       |   *[12,9]  
+---------------------------  
+15.T (c|d) [14]     | 18. F b  
+                    | *[18, 12]  
+---------------------  
+16. T c     | 17. T d  
+*[16, 8]    | *[17, 11]  
+  
+c) ((¬a∨¬b)→c)→((¬a→c)∧b)  
+ je splnitelna, nie je tautologia, je obcas pravdiva
+ Dokaz: ohodnotenie kedy je  pravdiva : a=0, b=0, c=0...potom lav. str. impl. je 0 teda impl. je pravdiva  
+ ohodnotenie kedy je nepravdiva: a=1, b=0, c=1 
+
+
+d) (((a∧(b∧¬c))∨d)→((¬d→(a∨e))∧((¬b∨(c∧d))→(d∨e))))    
+je tautologia, splnitelne, nie je obcas pravdiva  
+dokaz:  
+1. F (((a&(b&-c))|d)=>((-d=>(a|e))&((-b|(c&d))=>(d|e))))  
+2. T (((a&(b&-c))|d) [1]  
+3. F ((-d=>(a|e))&((-b|(c&d))=>(d|e))))  [1]
+---------------------------------------------------------------------------------------------------------
+4. T d [2]                                      | 5. T ((a&(b&-c)) [2]
+------------------------------------------------|6. T a [5]  
+10.F -d => (a|e)[4] | 11.F(-b|(c&d)) =>(d|e) [4]|7. T b [5]  
+12 T -d [10]        |14.F (d|e) [11]            |8. T -c [5]  
+13. F d [12]        |15. F d                    |9. F c [8]
+  *[13, 4]          | *[15, 4]                  |--------------------------------------------------------
+                                                |16. F -d=>(a|e) [3]  |17.F (-b|(c&d))=>(d|e) [3]   
+                                                |18. F a|e [16]       |20.T (-b|(c&d)) [17]
+                                                |19. F a [18]         |----------------------------------
+                                                | *[19, 6]            |21. T -b [20] |23. T c&d [20]
+                                                |                     |22. F b [21]  |24. T c [23]
+
+## 2.2 (2b)
+
+Predment môže študent úspešne absolvovať iba vtedy, keď odovzdá domáce úlohy a
+úspešne absolvuje (spraví) riadny alebo náhradný test.
+Náhradný test môžu písať iba tí, čo boli chorí, ale keďže býva ľahký, tak ho aj
+hneď spravia (teda iba chorí mohli spraviť náhradný test).
+Riadny test spravia iba tí, ktorí sa učili alebo aspoň riešili domáce úlohy.
+Študenti, ktorí odovzdali domáce úlohy ich buď riešili alebo odpísali.
+Odpisujú ich ale iba flákači, čo sa neučia.
+
+Dokážte tablovou metódou, že ak som predmet úspešne absolvoval a nebol som pri
+tom chorý, musel som riešiť domáce úlohy.
+
+Jednotlivé tvrdenia sformalizujte pomocou výrokovologických premenných:
+- `a` - absolvoval predmet
+- `t` - spravil test,
+- `n` - spravil náhradný test,
+- `du` - odovzdal dú,
+- `r` - riešil dú,
+- `o` - odpísal dú,
+- `u` - učil sa,
+- `ch` - bol chorý.
+veta: (a&ch)=>r treba dokazat  
+pravidla:  
+1.T a=>(du&(t|n))  
+2.T n=>ch  
+3.T r=>(u|r)  
+4.T du=>(r|o)  
+5.T o=>-u  
+6.F (a&ch)=>r    
